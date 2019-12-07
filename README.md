@@ -2,11 +2,12 @@
 Python scripts to simply and easily generate cryptocurrency addresses
 
 ```
-secretkey = SigningKey.generate(curve=SECP256k1)
-publickey = secretkey.get_verifying_key()
+signing_key = generate_signing_key()
+verifying_key = signing_key.get_verifying_key()
 
-wif = make_wif(secretkey.to_string())
-address = make_address(serialize_pk(publickey))
+wif = make_wif(signing_key.to_string())
+public_key = serialize_pk(verifying_key)
+address = make_address(public_key)
 
 print("WIF: " + wif)
 print("Address: " + address)
