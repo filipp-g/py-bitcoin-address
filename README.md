@@ -1,5 +1,5 @@
-# py-crypto-address
-Python scripts to simply and easily generate cryptocurrency addresses
+# bitcoin-address
+Python scripts to simply and easily generate bitcoin keys and addresses
 
 ```
 signing_key = generate_signing_key()
