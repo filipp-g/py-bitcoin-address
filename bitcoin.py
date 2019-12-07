@@ -23,13 +23,13 @@ def make_address(pubkey):
     hash160.update(sha256(pubkey).digest())
     addr = b"\x00" + hash160.digest()
     addr += get_checksum(addr)
-    return b58encode(addr)
+    return b58encode(addr).decode("utf-8")
 
 
 def make_wif(privkey):
     wif = b"\x80" + privkey
     wif += get_checksum(wif)
-    return b58encode(wif)
+    return b58encode(wif).decode("utf-8")
 
 
 secretkey = SigningKey.generate(curve=SECP256k1)
@@ -38,5 +38,5 @@ publickey = secretkey.get_verifying_key()
 wif = make_wif(secretkey.to_string())
 address = make_address(serialize_pk(publickey))
 
-print("WIF: " + wif.decode("utf-8"))
-print("Address: " + address.decode("utf-8"))
+print("WIF: " + wif)
+print("Address: " + address)

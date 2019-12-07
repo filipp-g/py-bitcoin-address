@@ -8,8 +8,8 @@ publickey = secretkey.get_verifying_key()
 wif = make_wif(secretkey.to_string())
 address = make_address(serialize_pk(publickey))
 
-print("WIF: " + wif.decode("utf-8"))
-print("Address: " + address.decode("utf-8"))
+print("WIF: " + wif)
+print("Address: " + address)
 ```
 
 Tested on Python 3.8.0
