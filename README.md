@@ -1,4 +1,4 @@
-# bitcoin-address
+# py-bitcoin-address
 Python scripts to simply and easily generate bitcoin keys and addresses
 
 ```
