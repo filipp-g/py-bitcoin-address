@@ -4,14 +4,18 @@ from ecdsa.util import number_to_string
 from base58 import b58encode
 
 
+def generate_signing_key():
+    return SigningKey.generate(curve=SECP256k1)
+
+
 def serialize_pk(pubkey, compress=False):
     if compress:
         p = pubkey.pubkey
         pfx = b'\x03' if p.point.y() & 1 else b'\x02'
-        str = pfx + number_to_string(p.point.x(), p.order)
+        serialized = pfx + number_to_string(p.point.x(), p.order)
     else:
-        str = b'\x04' + pubkey.to_string()
-    return str
+        serialized = b'\x04' + pubkey.to_string()
+    return serialized
 
 
 def get_checksum(addr):
@@ -32,11 +36,12 @@ def make_wif(privkey):
     return b58encode(wif).decode("utf-8")
 
 
-secretkey = SigningKey.generate(curve=SECP256k1)
-publickey = secretkey.get_verifying_key()
+signing_key = generate_signing_key()
+verifying_key = signing_key.get_verifying_key()
 
-wif = make_wif(secretkey.to_string())
-address = make_address(serialize_pk(publickey))
+wif = make_wif(signing_key.to_string())
+public_key = serialize_pk(verifying_key)
+address = make_address(public_key)
 
 print("WIF: " + wif)
 print("Address: " + address)
